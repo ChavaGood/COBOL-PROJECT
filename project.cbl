@@ -193,4 +193,34 @@
            .
        router2-exit. exit.
 
+      ****************************************************
+       choose-date SECTION.
+           display "choose date"
+           perform VARYING date-index from 1 by 1 until date-index=3
+                                   or date1(date-index)= ZERO
+               DISPLAY date-index SPACE date1(date-index) "/1/2025"
+           end-perform
+           accept number-input
+           move current-cust-id to v-client-id(date1(number-input),
+                                               v-line-index(log-index))
+           move doctor-id(doctor-index1(number-input)) to
+                                   v-doctor-id(date1(number-input),
+                                               v-line-index(log-index))
+           display "your visit will be at " date1(number-input)
+                       "/01/2025"
+           display "for doctor "
+                           doctor-name(doctor-index1(number-input))
+           display "you have to pay "
+                   visit-cost(doctor-index1(number-input))
+           if not Israel(current-cust-index)
+               DISPLAY '$'
+           END-IF
+           move ZERO to date1(1).
+           move ZERO to date1(2).
+           move ZERO to date1(3).
+           add 1 to cnt-visit(current-cust-index)
+           .
+       choose-date-exit. EXIT.
+      ****************************************************
+
        END PROGRAM YOUR-PROGRAM-NAME.
