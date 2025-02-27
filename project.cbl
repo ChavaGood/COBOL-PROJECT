@@ -152,10 +152,45 @@
                END-IF
               END-IF
            END-PERFORM
-           perform choose-date .
+           perform choose-date
        .
 
 
        router1-exit. exit.
+      * ****************************************************
+       router2 section.
+           if C-close(current-cust-index)
+               DISPLAY "your card is closed"
+               go to router2-exit
+           end-if
+           display "enter spec and ezor:"
+           display "for center-I press 1"
+                    "nourth-I  press 2"
+                    "sourth-I  press  3"
+                    "j-m-I press 4"
+                    "shfela-I  press 5"
+           accept spec
+           accept current-ezor
+           set date-index to 1
+           PERFORM varying doctor-index from 1 by 1 until
+                                           doctor-index>doctor-len
+             if ( not Israel(current-cust-index) and doctor-lenaguge
+                (doctor-index)="english" )or Israel(current-cust-index)
+               if spesific(doctor-index) = spec and ezor(doctor-index) =
+                                                            current-ezor
+                  perform varying log-index from 1 by 1 until
+                                       log-index >31 or date-index>3
+                    if accept-yes(doctor-index,day-in-week(log-index))
+                       move log-index  to date1(date-index)
+                       move doctor-index to doctor-index1(date-index)
+                       add 1 to date-index
+                    END-IF
+                  END-PERFORM
+               END-IF
+              END-IF
+           END-PERFORM
+           perform choose-date .
+           .
+       router2-exit. exit.
 
        END PROGRAM YOUR-PROGRAM-NAME.
