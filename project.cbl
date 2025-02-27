@@ -127,6 +127,34 @@
       ****************************************************
        router1 section.
 
+           if C-close(current-cust-index)
+               DISPLAY "your card is closed"
+               go to router1-exit
+           end-if
+           display "enter spec and dayInWeek (1-6):"
+           accept spec
+           accept dayInWeek
+           set date-index to 1
+           PERFORM varying doctor-index from 1 by 1 until
+                                           doctor-index>doctor-len
+
+             if ( not Israel(current-cust-index) and doctor-lenaguge
+                (doctor-index)="english" ) or Israel(current-cust-index)
+               if accept-yes(doctor-index,dayInWeek)
+                  perform varying log-index from 1 by 1 until
+                                           log-index >31 or date-index>3
+                    if day-in-week(log-index)=dayInWeek
+                       move log-index  to date1(date-index)
+                       move doctor-index to doctor-index1(date-index)
+                       add 1 to date-index
+                    END-IF
+                  END-PERFORM
+               END-IF
+              END-IF
+           END-PERFORM
+           perform choose-date .
+       .
+
 
        router1-exit. exit.
 
