@@ -85,5 +85,49 @@
                .
        identity-exit. exit.
       ****************************************************
+       loop section.
+           perform until number-input = 99
+             display "what do you want today?"
+             display "press 1 for make an appointment by scope and day"
+             display "press 2 for make an appointment by scope and ezor"
+             display "press 3 for know wich appointment do you have"
+             display "press 4 for make sure "
+                            DISPLAY "that you dont have any appointment"
+             display "press 5 for open your card"
+             display "press 6 for update bituah-type"
+             display "press 7 for Medical consultation"
+            display "press 8 for display the dates withou appointmentts"
+             display "press 9 for chek statistics " WITH no ADVANCING
+             display "between basic  and my-macabi clients"
+             display "press 99 to exit"
+             accept number-input
+             EVALUATE number-input
+                   when 1
+                       perform router1
+                   when 2
+                       perform router2
+                   when 3
+                       perform router3
+                   when 4
+                       perform router4
+                   when 5
+                       perform router5
+                   when 6
+                       perform router6
+                   when 7
+                       perform router7
+                   when 8
+                       perform router8
+                   when 9
+                       perform router9
+             END-EVALUATE
+           END-PERFORM
+           .
+       loop-exit. exit.
+      ****************************************************
+       router1 section.
+
+
+       router1-exit. exit.
 
        END PROGRAM YOUR-PROGRAM-NAME.
