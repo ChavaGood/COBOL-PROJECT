@@ -70,6 +70,7 @@
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
+           perform identity
             DISPLAY "Hello world"
             STOP RUN.
       *****************************************************
