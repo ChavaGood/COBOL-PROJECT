@@ -224,7 +224,27 @@
            MOVE 'O' to status-card(current-cust-index)
            display "your card dis open"
        .
-       op-5-exit. exit.
+       router5-exit. exit.
+      ****************************************************
+       router6 section.
+           DISPLAY "witch type of bituah do you want?"
+           DISPLAY "for basic press 1"
+           DISPLAY "for gold press 2"
+           DISPLAY "for siudi press 3"
+           DISPLAY "for my macabi press 4"
+           accept number-input
+           EVALUATE number-input
+               when 1
+                   move 'B' to biuah-type(current-cust-index)
+               when 2
+                   move 'Z' to biuah-type(current-cust-index)
+               when 1
+                   move 'S' to biuah-type(current-cust-index)
+               when 1
+                   move 'L' to biuah-type(current-cust-index)
+           END-EVALUATE
+       .
+       router6-exit. exit.
       ****************************************************
 
        choose-date SECTION.
