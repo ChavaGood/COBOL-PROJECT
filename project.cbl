@@ -260,6 +260,25 @@
        .
        router8-exit. exit.
       ****************************************************
+       router9 section.
+           perform varying client-index from 1 by 1 until
+                                                       client-index>30
+               if basic(client-index)
+                   add cnt-visit(client-index) to cnt-basic
+               else if my-macabi(client-index)
+                   add cnt-visit(client-index) to cnt-myMacabi
+               END-IF
+
+           end-perform
+           if cnt-basic>cnt-myMacabi
+               DISPLAY "cnt-basic>cnt-myMacabi"
+           ELSE
+               DISPLAY "cnt-basic<cnt-myMacabi"
+           END-IF
+       .
+       router9-exit. exit.
+      ****************************************************
+      ****************************************************
 
        choose-date SECTION.
            display "choose date"
