@@ -246,6 +246,20 @@
        .
        router6-exit. exit.
       ****************************************************
+       router7 section.
+           display "please call to number 052-7661222"
+       .
+       router7-exit. exit.
+      ****************************************************
+       router8 section.
+           perform varying log-index from 1 by 1 until log-index>31
+               if v-line-index(log-index) = 1
+                   display log-index "/1/2025"
+               END-IF
+           END-PERFORM
+       .
+       router8-exit. exit.
+      ****************************************************
 
        choose-date SECTION.
            display "choose date"
