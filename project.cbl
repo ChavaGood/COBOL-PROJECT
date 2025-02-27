@@ -220,6 +220,13 @@
        .
        router4-exit. exit.
       ****************************************************
+       router5 section.
+           MOVE 'O' to status-card(current-cust-index)
+           display "your card dis open"
+       .
+       op-5-exit. exit.
+      ****************************************************
+
        choose-date SECTION.
            display "choose date"
            perform VARYING date-index from 1 by 1 until date-index=3
