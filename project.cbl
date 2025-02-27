@@ -61,7 +61,7 @@
        01 current-ezor pic 9.
        01 dayInWeek pic 9.
        01 current-cust-id pic 9(9).
-       01 current-cust-index pic 99.
+       01 current-cust-index pic 99 value 0.
        01 dates OCCURS 3 indexed by date-index .
            03 date1 pic 99.
            03 doctor-index1 pic 99.
@@ -213,7 +213,12 @@
            END-PERFORM
        .
        router3-exit. exit.
-
+      ****************************************************
+       router4 section.
+           if cnt-visit(current-cust-index) =0
+               display "no visit"
+       .
+       router4-exit. exit.
       ****************************************************
        choose-date SECTION.
            display "choose date"
