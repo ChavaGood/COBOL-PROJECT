@@ -192,6 +192,27 @@
            perform choose-date .
            .
        router2-exit. exit.
+      ****************************************************
+       router3 section.
+           perform varying log-index from 1 by 1 until log-index >31
+
+               perform VARYING daly-log-index from 1 by 1
+                                             until daly-log-index > 20
+                   if v-client-id(log-index,daly-log-index)=
+                                                   current-cust-id
+                       display log-index "/01/2025"
+                       set doctor-index to 1
+                       search doctor
+                           when doctor-id(doctor-index)=v-doctor-id(
+                                               log-index,daly-log-index)
+                                display doctor-name(doctor-index) " ,"
+                                       spesific(doctor-index)
+                       END-SEARCH
+                   end-if
+               END-PERFORM
+           END-PERFORM
+       .
+       router3-exit. exit.
 
       ****************************************************
        choose-date SECTION.
