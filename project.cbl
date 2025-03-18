@@ -11,18 +11,18 @@
        WORKING-STORAGE SECTION.
 
        01 clients.
-           03 client-len pic 99 VALUE 30.
+           03 client-len pic 99 VALUE 0.
            03 client OCCURS 1 to 30 DEPENDING on client-len INDEXED by
                                                            client-index.
                05 client-id pic 9(9).
-               05 clint-name pic x(15).
+               05 client-name pic x(15).
                05 cnt-visit pic 9 VALUE 0.
-               05 biuah-type pic x.
+               05 bituah-type pic x.
                    88 basic  value 'B'.
                    88 GOLD  value 'Z'.
                    88 siudi  value 'S'.
                    88 my-macabi  value 'L'.
-               05 status-card pic x.
+               05 status-card pic x value 'c'.
                    88 C-open VALUE 'O'.
                    88 C-close VALUE 'C'.
                05 country pic 9.
@@ -31,7 +31,7 @@
                    88 France VALUE 3.
                    88 Englend VALUE 4.
        01 doctors.
-           03 doctor-len pic 99 value 20.
+           03 doctor-len pic 99 value 0.
            03 doctor OCCURS 1 to 30 DEPENDING on doctor-len INDEXED by
                                                            doctor-index.
                05 doctor-id pic 9(9).
@@ -56,7 +56,8 @@
                05 v-doctor-id pic 9(9).
                05 sicum-bikur pic x(100).
 
-       01 number-input pic 9 VALUE 0.
+       01 number-input pic 99 VALUE 0.
+       01 number-input1 pic 99 VALUE 0.
        01 spec pic x(15).
        01 current-ezor pic 9.
        01 dayInWeek pic 9.
@@ -68,20 +69,98 @@
        01 cnt-basic pic 999 VALUE 0.
        01 cnt-myMacabi pic 999 value 0.
 
+       01 flag-found pic 9 value 0.
+           88 found value 1.
+           88 not-found value 0.
+       01 indx pic 99.
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
+           PERFORM fill-doctors
+           perform fill-clients
            perform identity
+           perform loop
             DISPLAY "Hello world"
             STOP RUN.
       *****************************************************
+       fill-doctors section.
+           display "how many doctors do you want to add ?"
+           accept number-input
+           perform VARYING doctor-index from 1 by 1 until doctor-index
+                                                   >number-input
+               add 1 to doctor-len
+               display "enter doctor id"
+               accept doctor-id(doctor-index)
+               display "enter doctor name"
+               accept doctor-name(doctor-index)
+               display "enter doctor lenaguge"
+               accept doctor-lenaguge(doctor-index)
+               display "enter visit cost"
+               accept visit-cost(doctor-index)
+               display "enter spesific"
+               accept spesific(doctor-index)
+               display "enter ezor :"
+               display "   for center press 1"
+               display "   for nourth press 2"
+               display "   for sourth press 3"
+               display "   for Jerusalem press 4"
+               display "   for Shfela press 5"
+               accept ezor(doctor-index)
+               display "witch days the doctor work ?"
+               display "press numbers 1-6 . at the end press 9"
+               accept number-input1
+               perform until number-input1 =9
+                       set accept-yes(doctor-index,number-input1) to
+                                                               TRUE
+                       accept number-input1
+               END-PERFORM
+
+           END-PERFORM
+           .
+       fill-doctors-exit.EXIT.
+      *****************************************************
+      *****************************************************
+       fill-clients section.
+           display "how many clients do you want to add ?"
+           accept number-input
+           perform VARYING client-index from 1 by 1 until client-index
+                                                   >number-input
+               add 1 to client-len
+               display "enter client id"
+               accept client-id(client-index)
+               display "enter client name"
+               accept client-name(client-index)
+
+               display "enter bituah type :"
+               display "   for basic press B"
+               display "   for gold press Z"
+               display "   for siudi press S"
+               display "   for my-macabi press L"
+               accept bituah-type(client-index)
+               display "enter living:"
+               display "   for ISRAEL press 1"
+               display "   for USA press 2"
+               display "   for FRANCE press 3"
+               display "   for ENGLEND press 4"
+
+               accept country(client-index)
+
+           END-PERFORM
+           .
+       fill-clients-exit.EXIT.
+      *****************************************************
        identity section.
-           display "enter id"
-           accept current-cust-id
-           set client-index to 1
-           search client
-               when client-id(client-index)=current-cust-id
-                   move client-index to current-cust-index
-           END-SEARCH
+           perform until found
+               display "enter id"
+               accept current-cust-id
+               set client-index to 1
+               search client
+                   at end
+                       display "not found please try again"
+                   when client-id(client-index)=current-cust-id
+                       set found to true
+                       move client-index to current-cust-index
+               END-SEARCH
+           END-PERFORM
                .
        identity-exit. exit.
       ****************************************************
@@ -235,13 +314,13 @@
            accept number-input
            EVALUATE number-input
                when 1
-                   move 'B' to biuah-type(current-cust-index)
+                   move 'B' to bituah-type(current-cust-index)
                when 2
-                   move 'Z' to biuah-type(current-cust-index)
+                   move 'Z' to bituah-type(current-cust-index)
                when 1
-                   move 'S' to biuah-type(current-cust-index)
+                   move 'S' to bituah-type(current-cust-index)
                when 1
-                   move 'L' to biuah-type(current-cust-index)
+                   move 'L' to bituah-type(current-cust-index)
            END-EVALUATE
        .
        router6-exit. exit.
